@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Countdown Sample</title>
+</head>
+<body style="font-family: Arial, sans-serif;">
+<h2>Sample Countdown Timer</h2>
+<!-- Countdown timer widget by NiftyButtons - Visit https://www.niftybuttons.com -->
+<div id="nifty-countdown-20251215" style="
+  background: transparent !important;
+  color: #e8a42b !important;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  display: inline-block;
+"></div>
+
+<script>
+(function() {
+  // set target date (end of day Dec 19, 2025 in local time)
+  var targetDate = new Date('2025-12-20T00:00:00').getTime();
+  var container = document.getElementById('nifty-countdown-20251215');
+
+  function updateCountdown() {
+    var now = new Date().getTime();
+    var distance = targetDate - now;
+
+    // if expired
+    if (distance < 0) {
+      container.innerHTML =
+        '<div style="font-size: 24px;">This event has ended!</div>';
+      clearInterval(countdownInterval);
+      return;
+    }
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    var html = '';
+    html += '<div style="display: flex; gap: 20px; justify-content: center;">';
+
+    function unitBlock(value, label) {
+      return '<div style="text-align:center;">' +
+             '<div style="font-size:48px; color:#e8a42b !important; font-weight:bold;">' +
+             String(value).padStart(2, '0') +
+             '</div>' +
+             '<div style="font-size:12px; color:#6c6c6c !important; margin-top:4px;">' +
+             label +
+             '</div></div>';
+    }
+
+    html += unitBlock(days, 'DAYS');
+    html += unitBlock(hours, 'HOURS');
+    html += unitBlock(minutes, 'MINUTES');
+    html += unitBlock(seconds, 'SECONDS');
+
+    html += '</div>';
+    html += '<div style="font-size:18px; margin-top:15px; color:#e8a42b !important;">'
+          + 'Sale ends soon'
+          + '</div>';
+
+    container.innerHTML = html;
+  }
+
+  updateCountdown();
+  var countdownInterval = setInterval(updateCountdown, 1000);
+})();
+</script>
+
+</body>
+</html>
